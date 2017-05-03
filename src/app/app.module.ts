@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { LocationStrategy, PathLocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -31,9 +31,13 @@ import { SignInService } from './services/sign-in.service';
 import { LocalStorageService } from './services/local-storage/local-storage.service';
 import { AppHttpService } from './services/app-http/app-http.service';
 import { AppCanActivateService } from './services/app-can-activate/app-can-activate.service';
+import { FeedService } from './services/feed/feed.service';
 
 import {RlTagInputModule} from 'angular2-tag-input';
-import { FeedsComponent } from './feeds/feeds.component';
+import { HeaderComponent } from './header/header.component';
+import { SideBarComponent } from './side-bar/side-bar.component';
+// import { FeedsComponent } from './feeds/feeds.component';
+// import {} from './feeds/feeds.module';
 
 
 @NgModule({
@@ -57,7 +61,9 @@ import { FeedsComponent } from './feeds/feeds.component';
     LoginComponent,
     RegisterComponent,
     AlertComponent,
-    FeedsComponent
+    HeaderComponent,
+    SideBarComponent,
+    // FeedsComponent
   ],
   providers: [{
     provide: LocationStrategy,
@@ -67,7 +73,8 @@ import { FeedsComponent } from './feeds/feeds.component';
   SignInService,
   LocalStorageService,
   AppHttpService,
-  AppCanActivateService
+  AppCanActivateService,
+  FeedService
   ],
   bootstrap: [ AppComponent ]
 })

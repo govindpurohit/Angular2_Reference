@@ -28,8 +28,8 @@ export class LocalStorageService {
 
   getSessionId(){
     let userDetails = this.getUserDetails();
-    if(userDetails && userDetails.user && userDetails.user.secret_token){
-      return 'Bearer ' + userDetails.user.secret_token;
+    if(userDetails && userDetails.secret_token){
+      return 'Bearer ' + userDetails.secret_token;
     }
   }
 

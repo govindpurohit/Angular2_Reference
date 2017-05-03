@@ -5,13 +5,14 @@ const router = express.Router();
 const User = require('../middlewares/users');
 const Feed = require('../middlewares/feeds');
 const authController = require('../middlewares/auth/auth');
+const exp = require('../middlewares/expression');
 
 router.get('/', (req,res) => {
     let userId;
     if(req.decoded && req.decoded.sub){
         userId = req.decoded.sub;
         Feed.getAllFeeds(userId).then((data) => {
-            res.send({"success":true,"message":"got data.","data":data});
+            res.send(data);
         },
         (err) => {
             res.send({"success":false,"message":"something wrong.","error":err});
@@ -37,6 +38,14 @@ router.post('/',(req,res) => {
 
     if(body && ((optionalKeywords && optionalKeywords.length > 0) || (requiredKeywords && requiredKeywords.length > 0))){
         Feed.saveFeed(body).then((data) => {
+            let v = exp.getExpression(data);
+            news.getGoogleNews(v).then((data) => {
+                // res.send(data);
+            },
+            (err) => {
+                console.log("Error:"+err);
+                // res.send(err);
+            });
             res.send({"success":true,"message":"feed saved."})
         },
         (err) => {

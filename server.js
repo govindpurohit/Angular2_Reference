@@ -11,6 +11,8 @@ var public = require('./server/routes/public');
 // var users = require('./routes/users');
 var config = require('./server/config/config');
 var feeds = require('./server/routes/feeds');
+var refer = require('./server/routes/reference');
+
 var authController = require('./server/middlewares/auth/auth');
 
 var app = express(); 
@@ -37,6 +39,7 @@ app.use(express.static(path.join(__dirname, '/dist')));
 // app.use('/users', users);
 app.use('/api', public);
 app.use('/api/feeds',authController.authorize,feeds);
+app.use('/api/reference',refer);
 
 // For all GET requests, send back index.html
 // so that PathLocationStrategy can be used

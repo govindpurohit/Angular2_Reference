@@ -16,7 +16,7 @@ import { AppCanActivateService } from './services/app-can-activate/app-can-activ
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'feeds',
     pathMatch: 'full',
   },
   {
@@ -33,23 +33,35 @@ export const routes: Routes = [
       title: 'Register'
     }
   },
+  // {
+  //   path: 'feeds',
+  //   component: FeedsComponent,
+  //   data:{
+  //     title: 'Feeds'
+  //   },
+  //   canActivate: [AppCanActivateService],
+  //   children:[
+  //     {
+  //       path: '',
+  //       loadChildren: './feeds/'
+  //     }
+
+  //   ]
+  // },
   {
-    path: 'feeds',
-    component: FeedsComponent,
-    data:{
-      title: 'Feeds'
-    }
-  },
-  {
-    path: 'home',
+    path: '',
     component: FullLayoutComponent,
     data: {
       title: 'Home'
     },
-    canActivate: [AppCanActivateService],
+    // canActivate: [AppCanActivateService],
     children: [
       {
-        path: '',
+        path: 'feeds',
+        loadChildren: './feeds/feeds.module#FeedsModule'
+      },
+      {
+        path: 'dashboard',
         loadChildren: './dashboard/dashboard.module#DashboardModule'
       },
       {

@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
               // login was successful
               this.appLocalStorage.setLoginInfo(result);
               this.appLocalStorage.setUserDetails(result);
-              this.router.navigate(['/home']);
+              this.router.navigate(['']);
             }
          },
          error => {

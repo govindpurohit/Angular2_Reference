@@ -26,16 +26,17 @@ exports.getAllFeeds = function(){
   });
 }
 
-// exports.getUserByEmail = function(email){
-//   return new Promise(function(resolve,reject){
-//     User.findOne({email:email}).then(function(data){
-//       resolve(data)
-//     },
-//       function(error){
-//         reject(error)
-//       });
-//   });
-// }
+exports.getFeedById = function(id){
+
+  return new Promise(function(resolve,reject){
+    Feed.findOne({_id:id}).then(function(data){
+      resolve(data)
+    },
+      function(error){
+        reject(error)
+      });
+  });
+}
 
 exports.getFeedByUser = function(id){
   return new Promise(function(resolve,reject){
