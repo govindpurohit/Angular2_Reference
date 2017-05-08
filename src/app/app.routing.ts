@@ -52,9 +52,9 @@ export const routes: Routes = [
     path: '',
     component: FullLayoutComponent,
     data: {
-      title: 'Home'
+      title: 'Feed'
     },
-    // canActivate: [AppCanActivateService],
+    canActivate: [AppCanActivateService],
     children: [
       {
         path: 'feeds',
@@ -85,6 +85,7 @@ export const routes: Routes = [
   {
     path: 'alert',
     component: AlertComponent,
+    canActivate: [AppCanActivateService],
     data:{
       title: 'alert'
     }

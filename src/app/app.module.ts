@@ -31,6 +31,7 @@ import { SignInService } from './services/sign-in.service';
 import { LocalStorageService } from './services/local-storage/local-storage.service';
 import { AppHttpService } from './services/app-http/app-http.service';
 import { AppCanActivateService } from './services/app-can-activate/app-can-activate.service';
+import { AlertService } from './services/alert/alert.service';
 import { FeedService } from './services/feed/feed.service';
 
 import {RlTagInputModule} from 'angular2-tag-input';
@@ -74,6 +75,7 @@ import { SideBarComponent } from './side-bar/side-bar.component';
   LocalStorageService,
   AppHttpService,
   AppCanActivateService,
+  AlertService,
   FeedService
   ],
   bootstrap: [ AppComponent ]

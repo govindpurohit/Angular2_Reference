@@ -6,6 +6,7 @@ const User = require('../middlewares/users');
 const Feed = require('../middlewares/feeds');
 const authController = require('../middlewares/auth/auth');
 const exp = require('../middlewares/expression');
+const news = require('../feature/newsscrapper');
 
 router.get('/', (req,res) => {
     let userId;
@@ -39,7 +40,7 @@ router.post('/',(req,res) => {
     if(body && ((optionalKeywords && optionalKeywords.length > 0) || (requiredKeywords && requiredKeywords.length > 0))){
         Feed.saveFeed(body).then((data) => {
             let v = exp.getExpression(data);
-            news.getGoogleNews(v).then((data) => {
+            news.getGoogleNews(v,data._id).then((data) => {
                 // res.send(data);
             },
             (err) => {

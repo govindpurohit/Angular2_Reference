@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import {MomentModule} from 'angular2-moment';
+
 import { FeedsComponent } from './feeds.component';
 import { FeedsRoutingModule } from './feeds-routing.module';
 import { TabsModule } from 'ng2-bootstrap/tabs';
@@ -11,8 +13,9 @@ import{SideBarComponent} from '../side-bar/side-bar.component';
   imports: [
     CommonModule,
     FeedsRoutingModule,
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    MomentModule
   ],
-  declarations: [FeedsComponent]
+  declarations: [FeedsComponent],
 })
 export class FeedsModule { }

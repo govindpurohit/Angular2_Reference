@@ -14,6 +14,17 @@ exports.saveReference = function (reference,done){
     });
   });
 }
+exports.getAllReference = function(dataLimit,id){
+  return new Promise(function(resolve,reject){
+    Reference.find({feedReference:id}).sort({"createdAt":-1}).skip((dataLimit-1)*10).limit(10).then(function(data){
+      // console.log("Limit:"+data.length);
+      resolve(data)
+    },
+      function(error){
+        reject(error)
+      });
+  });
+}
 
 // exports.getAllFeeds = function(){
 //   return new Promise(function(resolve,reject){

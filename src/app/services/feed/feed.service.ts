@@ -14,8 +14,8 @@ import 'rxjs/add/observable/throw';
 export class FeedService {
 
    // Observable string sources
-  private feedSource = new Subject<object>();
-  private singleFeedSource = new Subject<object>();
+  private feedSource = new Subject<String>();
+  private singleFeedSource = new Subject<String>();
 
   // Observable string streams
   feedSource$ = this.feedSource.asObservable();
@@ -24,13 +24,17 @@ export class FeedService {
 
   constructor(public appBaseService : AppHttpService) { }
 
+  saveFeed(feed){
+    return this.appBaseService.post('/api/alerts',feed).map(res => res.json());
+  }
+
   // Service message commands
-  setFeeds(mission: object) {
+  setFeeds(mission) {
     this.feedSource.next(mission);
   }
 
   getFeeds(){
-     return this.appBaseService.get('/api/feeds').map(res => res.json())
+     return this.appBaseService.get('/api/alerts').map(res => res.json())
       .catch(this.handleError);
   }
 
@@ -38,8 +42,13 @@ export class FeedService {
     this.singleFeedSource.next(singleFeed);
   }
 
-  getNewsByFeed(){
+  getReferenceByFeed(feed){
+    return this.appBaseService.get('/api/reference/'+feed._id).map(res => res.json())
+    .catch(this.handleError);
+  }
 
+  deleteReferenceById(id){
+    return this.appBaseService.delete('/api/reference/'+id).map(res => res.json());
   }
 
   handleError(error: Response | any){

@@ -2,15 +2,18 @@
     <nav class="sidebar-nav">
       <ul class="nav">
         <li class="nav-title">
-          Mentions
+          Alerts
         </li>
-        <ul class="nav" *ngFor="let feed of feeds ">
-          <li class="nav-item" (click)="getFeed(feed)">
-            <a class="nav-link" routerLinkActive="active"><i class="icon-speedometer"></i> {{feed.name}} <span class="badge badge-info">NEW</span></a>
+        <ul class="nav" *ngFor="let alert of alerts;let i = index ">
+          <li class="nav-item" (click)="getAlert(alert,i)">
+            <a class="nav-link" [class.active]="nindex === i"><i class="icon-speedometer"></i> {{alert.name}} <a title="Delete Alert" (click)="deleteAlert(alert,i)"><i class=" icon-settings pull-right"></i></a></a>
           </li>
         </ul>
       </ul>
+      <br/>
+      <a [routerLink]="['/alert']" class="btn btn-primary" type="button" style="margin-left: 30px">Add a new alert</a>
     </nav>
+    
 </div>
 
 <!--<div class="sidebar">

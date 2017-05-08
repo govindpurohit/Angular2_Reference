@@ -14,7 +14,7 @@ exports.getExpression = function(feed){
     if(feed && feed.excludedKeywords && feed.excludedKeywords.length > 0){
         excludedKeywordsExp = getExcludedKeywords(feed.excludedKeywords);
     }
-    console.log("exp:"+requiredKeywordsExp + " "+optionalKeywordsExp+" "+excludedKeywordsExp);
+    // console.log("exp:"+requiredKeywordsExp + " "+optionalKeywordsExp+" "+excludedKeywordsExp);
     return requiredKeywordsExp + " "+optionalKeywordsExp+" "+excludedKeywordsExp;
 }
 

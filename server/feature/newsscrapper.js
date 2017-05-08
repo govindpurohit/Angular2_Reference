@@ -88,7 +88,6 @@ function getRealTime(time){
 // &tbs=qdr:h
 exports.getGoogleNews = function (searchKeyword,id){
     return new Promise(function(resolve,reject){
-            // var keyword = "ipl + gujarat";
             var keyword = searchKeyword;
             var news = [];
             request('https://www.google.co.in/search?q='+keyword+'&tbm=nws&bav=on.2,or.r_cp.&biw=1309&bih=678&dpr=1&lr=lang_en', function (error, response, html) {
@@ -116,7 +115,7 @@ exports.getGoogleNews = function (searchKeyword,id){
                             };
                     news.push(singleNews);
                     reference.saveReference(singleNews).then((data) => {
-                        console.log("saved singleNews");
+                        // console.log("saved singleNews");
                     },
                     (err) => {
                         console.log("single news error:"+err);

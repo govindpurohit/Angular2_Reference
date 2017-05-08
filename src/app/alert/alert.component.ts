@@ -1,4 +1,8 @@
 import { Component, OnInit , ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { FeedService } from '../services/feed/feed.service';
+import { AlertService } from '../services/alert/alert.service';
 
 @Component({
   selector: 'app-alert',
@@ -11,7 +15,7 @@ export class AlertComponent implements OnInit {
   model : any = {};
   error = false;
   errorMsg = '';
-  constructor() {
+  constructor(public alertService : AlertService, public route : Router) {
    }
 
   ngOnInit() {
@@ -28,9 +32,9 @@ export class AlertComponent implements OnInit {
       this.errorMsg = "Please enter one keyword min."
     }
     else{
-        console.log("got keywords:"+this.model.optionalKeywords);
-        console.log("got keywords:"+this.model.requiredKeywords);
-        console.log("got keywords:"+this.model.excludedKeywords);
+        this.alertService.saveAlert(this.model).subscribe((data) => {
+          this.route.navigate(['/feeds']);
+        });
     }
   }
 

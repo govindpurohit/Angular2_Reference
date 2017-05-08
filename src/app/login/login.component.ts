@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
     let userDetails = appLocalStorage.getLoginInfo();
     if(userDetails){
       //user is logged in
-      this.router.navigate(['/home']);
+      // this.router.navigate(['/feeds']);
+      this.appLocalStorage.clear();
     }
   }
 
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
               // login was successful
               this.appLocalStorage.setLoginInfo(result);
               this.appLocalStorage.setUserDetails(result);
-              this.router.navigate(['']);
+              this.router.navigate(['/feeds']);
             }
          },
          error => {

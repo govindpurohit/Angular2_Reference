@@ -36,18 +36,25 @@ export class AppHttpService {
 
   get(url, params:any = {}, headerOptions:any = {}, doNotSendAuthorizationParam:boolean = false){
     let options = this.getHeader(headerOptions, params, doNotSendAuthorizationParam);
-    return this.http.get(url, options).catch(this.handleError);
+    return this.http.get("http://localhost:3000"+url, options).catch(this.handleError);
   }
 
   post(url, params:any = {}, headerOptions:any = {}, doNotSendAuthorizationParam:boolean = false){
     let options = this.getHeader(headerOptions, {}, doNotSendAuthorizationParam);
-    return this.http.post(url, params, options).catch(this.handleError);
+    return this.http.post("http://localhost:3000"+url, params, options).catch(this.handleError);
+  }
+
+  delete(url,headerOptions:any = {}, doNotSendAuthorizationParam:boolean = false){
+    let options = this.getHeader(headerOptions, {}, doNotSendAuthorizationParam);
+    return this.http.delete("http://localhost:3000"+url,options).catch(this.handleError);
   }
 
   handleError(error: Response | any){
     const body = error.json() || '';
-    if(body.error.code == 401){
+    if(body.error && body.error.code == 401){
       this.router.navigate(['/login']);
+    }
+    else if(body.error && body.error.code == 403){
     }
 
     return Observable.throw(body);

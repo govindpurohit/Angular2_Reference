@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer} from '@angular/core';
+import { Router } from '@angular/router';
 
-import { FeedService } from '../services/feed/feed.service';
+import { AlertService } from '../services/alert/alert.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -9,12 +10,13 @@ import { FeedService } from '../services/feed/feed.service';
 })
 export class SideBarComponent implements OnInit {
 
-  public feeds : any = [];
+  public alerts : any = [];
+  public nindex = 0;
 
-  constructor(public feedService : FeedService) {
-    this.feedService.feedSource$.subscribe(
-      feeds => {
-        this.feeds = feeds;
+  constructor(public alertService : AlertService, public render : Renderer, public router: Router) {
+    this.alertService.alertSource$.subscribe(
+      alerts => {
+        this.alerts = alerts;
       }
     )
    }
@@ -22,8 +24,31 @@ export class SideBarComponent implements OnInit {
   ngOnInit() {
   }
 
-  getFeed(feed){
-    this.feedService.setSingleFeed(feed);
+  getAlert(alert,index){
+    this.nindex = index;
+    this.alertService.setSingleAlert(alert);
+    // confirm("");
+  }
+
+  deleteAlert(alert,index){
+    if(confirm("Are you sure? Do you want to delete this alert?")){
+      this.alerts.splice(index,1);
+      this.alertService.deleteAlertById(alert._id).subscribe((res) => {
+        if(res && res.error){
+          alert("Can't deleted.");
+        }
+        else{
+          if(index === this.alerts.length){ // here this.alerts.length taken beacuse alert allready removed.
+            this.alertService.setSingleAlert(this.alerts[0]);
+            this.nindex = 0;
+          }
+          else {
+            this.alertService.setSingleAlert(this.alerts[index]);
+            this.nindex = index;
+          }
+        }
+      });
+    }
   }
 
 }
