@@ -37,9 +37,6 @@ import { FeedService } from './services/feed/feed.service';
 import {RlTagInputModule} from 'angular2-tag-input';
 import { HeaderComponent } from './header/header.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
-// import { FeedsComponent } from './feeds/feeds.component';
-// import {} from './feeds/feeds.module';
-
 
 @NgModule({
   imports: [
@@ -64,7 +61,6 @@ import { SideBarComponent } from './side-bar/side-bar.component';
     AlertComponent,
     HeaderComponent,
     SideBarComponent,
-    // FeedsComponent
   ],
   providers: [{
     provide: LocationStrategy,

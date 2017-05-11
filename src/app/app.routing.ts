@@ -33,21 +33,6 @@ export const routes: Routes = [
       title: 'Register'
     }
   },
-  // {
-  //   path: 'feeds',
-  //   component: FeedsComponent,
-  //   data:{
-  //     title: 'Feeds'
-  //   },
-  //   canActivate: [AppCanActivateService],
-  //   children:[
-  //     {
-  //       path: '',
-  //       loadChildren: './feeds/'
-  //     }
-
-  //   ]
-  // },
   {
     path: '',
     component: FullLayoutComponent,
@@ -59,26 +44,6 @@ export const routes: Routes = [
       {
         path: 'feeds',
         loadChildren: './feeds/feeds.module#FeedsModule'
-      },
-      {
-        path: 'dashboard',
-        loadChildren: './dashboard/dashboard.module#DashboardModule'
-      },
-      {
-        path: 'components',
-        loadChildren: './components/components.module#ComponentsModule'
-      },
-      {
-        path: 'icons',
-        loadChildren: './icons/icons.module#IconsModule'
-      },
-      {
-        path: 'widgets',
-        loadChildren: './widgets/widgets.module#WidgetsModule'
-      },
-      {
-        path: 'charts',
-        loadChildren: './chartjs/chartjs.module#ChartJSModule'
       }
     ]
   },
@@ -89,19 +54,6 @@ export const routes: Routes = [
     data:{
       title: 'alert'
     }
-  },
-  {
-    path: 'pages',
-    component: SimpleLayoutComponent,
-    data: {
-      title: 'Pages'
-    },
-    children: [
-      {
-        path: '',
-        loadChildren: './pages/pages.module#PagesModule',
-      }
-    ]
   }
 ];
 
