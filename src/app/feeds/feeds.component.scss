@@ -62,3 +62,34 @@ $white: #b5acac;
 	border-radius: 10px;
 	background-color: $white;
 }
+
+//colors
+$color_concrete_approx: #f3f3f3;
+$color_curious_blue_approx: #3498db;
+
+.loader {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 1;
+	width: 150px;
+	height: 150px;
+	margin: -75px 0 0 -75px;
+	border: 16px solid $color_concrete_approx;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 50%;
+	border-top: 16px solid $color_curious_blue_approx;
+	width: 120px;
+	height: 120px;
+	animation: spin 2s linear infinite;
+}
+@keyframes spin {
+	0% {
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: rotate(0deg);
+	}
+	100% {
+		//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+		transform: rotate(360deg);
+	}
+}

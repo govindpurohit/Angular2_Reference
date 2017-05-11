@@ -7,11 +7,13 @@ const Schema = mongoose.Schema;
 mongoose.Promise = require('bluebird');
 
 const reference = new Schema({ 
-    name:{type:String,required:true},
+    name:{type:String},
     sourceUrl: String, 
     detail: String,
     imageUrl: String,
     createdAt: Date,
+    type: String,
+    headline: String,
     feedReference: {type:Schema.Types.ObjectId,ref: Feed}
 });
 

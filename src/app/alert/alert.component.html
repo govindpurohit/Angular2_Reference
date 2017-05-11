@@ -13,22 +13,22 @@
             <form #f="ngForm" name="form" novalidate>
               <div class="form-group">
                 <label for="company">Optional Keywords</label>
-                <p class="text-muted" style="font-size: .9em">Your alert will collect mentions that contain any of these keywords, plus all required keywords.</p>
+                <p class="text-muted" style="font-size: .8em">Your alert will collect mentions that contain any of these keywords, plus all required keywords.</p>
                 <rl-tag-input [(ngModel)]="model.optionalKeywords" name="optionalKeywords" placeholder="Add a keyword..."></rl-tag-input>
-              </div>
+              </div><br>
 
               <div class="form-group">
                 <label for="company">Required Keywords</label>
-                <p class="text-muted" style="font-size: .9em">Your alert will collect mentions that contain all of these keywords.</p>
+                <p class="text-muted" style="font-size: .8em">Your alert will collect mentions that contain all of these keywords.</p>
                 <rl-tag-input [(ngModel)]="model.requiredKeywords" name="requiredKeywords" placeholder="Add a keyword..."></rl-tag-input>
-              </div>
+              </div><br>
 
                <div class="form-group">
                 <label for="company">Excluded Keywords</label>
-                <p class="text-muted" style="font-size: .9em">Your alert will not bring in mentions with any of the following keywords.</p>
+                <p class="text-muted" style="font-size: .8em">Your alert will not bring in mentions with any of the following keywords.</p>
                 <rl-tag-input [(ngModel)]="model.excludedKeywords" name="excludedKeywords" placeholder="Add a keyword..."></rl-tag-input>
               </div>
-              <button type="button" class="btn btn-block btn-success" (click)="f.valid && save()">Create Account</button>
+              <button type="button" class="btn btn-block btn-success" (click)="f.valid && save()">Create Alert</button>
               </form>
             </div>
         </div>

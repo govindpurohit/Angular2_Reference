@@ -40,11 +40,22 @@ exports.getFeedById = function(id){
 
 exports.getFeedByUser = function(id){
   return new Promise(function(resolve,reject){
-    User.find({creator:id}).then(function(data){
+    Feed.find({creator:id}).then(function(data){
       resolve(data);
     },
       function(error){
         reject(error)
       });
   });
+}
+
+exports.deleteFeedById = function(id){
+  return new Promise((resolve,reject) => {
+    Feed.remove({_id:id}).then((data) => {
+      resolve(data);
+    },
+    (err) => {
+      reject(err);
+    })
+  })
 }

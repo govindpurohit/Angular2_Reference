@@ -5,7 +5,8 @@ const config = require('../../config/config');
 
 exports.authorize = function(req,res,next){
   // check header or url parameters or post parameters for token
-  let token; // = req.body.token || req.query.token || req.headers['x-access-token'];
+  let token ;// req.body.token || req.query.token || req.headers['x-access-token'];
+
    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
         token = req.headers.authorization.split(' ')[1];
     } else if (req.query && req.query.token) {
@@ -33,7 +34,7 @@ exports.authorize = function(req,res,next){
     // return an error
     return res.status(403).send({ 
         success: false, 
-        message: 'No token provided.' 
+        message: 'You are not authorized to do this operation.' 
     }); 
   }
 }

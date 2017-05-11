@@ -14,9 +14,10 @@ exports.saveReference = function (reference,done){
     });
   });
 }
+// .skip((dataLimit-1)*10).limit(10)
 exports.getAllReference = function(dataLimit,id){
   return new Promise(function(resolve,reject){
-    Reference.find({feedReference:id}).sort({"createdAt":-1}).skip((dataLimit-1)*10).limit(10).then(function(data){
+    Reference.find({feedReference:id}).sort({"createdAt":-1}).then(function(data){
       // console.log("Limit:"+data.length);
       resolve(data)
     },
@@ -26,35 +27,36 @@ exports.getAllReference = function(dataLimit,id){
   });
 }
 
-// exports.getAllFeeds = function(){
-//   return new Promise(function(resolve,reject){
-//     Feed.find().then(function(data){
-//       resolve(data)
-//     },
-//       function(error){
-//         reject(error)
-//       });
-//   });
-// }
+exports.deleteReferenceById = function(id){
+  return new Promise((resolve,reject) => {
+    Reference.remove({_id:id}).then((data) =>{
+      resolve(data);
+    },
+    (err) => {
+      reject(err);
+    })
+  })
+}
 
-// exports.getUserByEmail = function(email){
-//   return new Promise(function(resolve,reject){
-//     User.findOne({email:email}).then(function(data){
-//       resolve(data)
-//     },
-//       function(error){
-//         reject(error)
-//       });
-//   });
-// }
+exports.deleteReferenceByFeedId = function(id){
+  return new Promise((resolve,reject) => {
+    Reference.remove({feedReference:id}).then((data) => {
+      resolve(data);
+  },
+  (err) => {
+    reject(err);
+  })
+  })
+}
 
-// exports.getFeedByUser = function(id){
-//   return new Promise(function(resolve,reject){
-//     User.find({creator:id}).then(function(data){
-//       resolve(data);
-//     },
-//       function(error){
-//         reject(error)
-//       });
-//   });
-// }
+exports.isNewsExist = function(news){
+  return new Promise((resolve,reject) => {
+    Reference.find({sourceUrl:news.sourceUrl}).then((data) => {
+      let exist = data && data.length > 0 ? true : false;
+      resolve(exist);
+    },
+    (err) => {
+      reject(err);
+    })
+  })
+}

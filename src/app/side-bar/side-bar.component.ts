@@ -27,7 +27,6 @@ export class SideBarComponent implements OnInit {
   getAlert(alert,index){
     this.nindex = index;
     this.alertService.setSingleAlert(alert);
-    // confirm("");
   }
 
   deleteAlert(alert,index){

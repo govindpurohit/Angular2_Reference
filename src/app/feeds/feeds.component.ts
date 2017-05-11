@@ -18,6 +18,7 @@ export class FeedsComponent implements OnInit {
   private stopScroll = false;
   private page = 1;
   private noReferences = false;
+  private loading = false;
 //   { 
 //     "name":"",
 //     "sourceUrl": "", 
@@ -31,15 +32,19 @@ export class FeedsComponent implements OnInit {
     this.alertService.singleAlert$.subscribe(
       alert => {
         this.alert = alert;
+        this.page = 1;
+        this.ref = [];
+        this.loading = true;
+        this.noReferences = false;
         this.alertService.getReferenceByAlert(this.alert).subscribe((data) => {
           this.allRef = data.data;
+          this.loading = false;
+          this.noReferences = false;
           if(this.allRef && this.allRef.length > 0 && this.allRef.length <= this.dataLimit){
             this.ref = this.allRef;
-            this.noReferences = false;
           }
           else if(this.allRef && this.allRef.length > this.dataLimit){
             this.ref = this.allRef.slice(0,10);
-            this.noReferences = false;
           }
           else{
             this.message = "No References to show.";
@@ -76,6 +81,7 @@ export class FeedsComponent implements OnInit {
   }
 
   loadMoreData(){
+    console.log("page no:"+this.page);
     if((this.allRef.length - this.ref.length) >= 10){
       this.ref = this.ref.concat(this.allRef.slice((this.page-1) * this.dataLimit,this.page * this.dataLimit));
     }
@@ -83,6 +89,7 @@ export class FeedsComponent implements OnInit {
       this.ref = this.ref.concat(this.allRef.slice((this.page-1) * this.dataLimit));
     }
     else{
+      this.page = 1;
       console.log("no data");
     }
   }

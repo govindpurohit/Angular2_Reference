@@ -1,7 +1,7 @@
 <tabset>
   <tab class="scrollbar" id="style-15" (scroll)="onScroll($event)">
-    <!--<template tabHeading><i class="icon-list"></i></template>-->
     <div *ngIf="noReferences">{{message}}</div>
+    <div *ngIf = "loading" class="loader"></div>
     <div class="p-1" *ngFor="let r of ref;let i = index">
       <div class="message" *ngIf="!noReferences">
         <a href="{{r.sourceUrl}}" target="_blank">
@@ -13,11 +13,10 @@
         </div>
         <div>
           <small class="text-muted font-weight-bold">{{r.name}}</small>
-          <!--<small class="text-muted float-right mt-q">{{r.createdAt | amTimeAgo}}</small>-->
            <time style="float:right;font-size:.6em;color: blue">{{r.createdAt | amTimeAgo}}</time>
         </div>
         <div class="text-truncate">{{r.headline}}</div>
-        <small class="text-muted">{{r.detail}}</small>
+        <small class="text-muted">{{r.detail | slice:0:90}}...</small>
         </a>
         <a class="btn" title="Delete" style="float:right;" (click)="delete(r,i)">
           <i class="fa fa-trash fa-lg m-t-2"></i>

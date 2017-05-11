@@ -27,7 +27,7 @@ export class AlertComponent implements OnInit {
   }
 
   save(){
-    if(this.model.optionalKeywords.length == 0 || this.model.requiredKeywords==0){
+    if(this.model.optionalKeywords.length == 0 && this.model.requiredKeywords==0){
       this.error = true;
       this.errorMsg = "Please enter one keyword min."
     }
