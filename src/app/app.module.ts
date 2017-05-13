@@ -33,6 +33,7 @@ import { AppHttpService } from './services/app-http/app-http.service';
 import { AppCanActivateService } from './services/app-can-activate/app-can-activate.service';
 import { AlertService } from './services/alert/alert.service';
 import { FeedService } from './services/feed/feed.service';
+import { ReferenceService } from './services/reference/reference.service';
 
 import {RlTagInputModule} from 'angular2-tag-input';
 import { HeaderComponent } from './header/header.component';
@@ -72,7 +73,8 @@ import { SideBarComponent } from './side-bar/side-bar.component';
   AppHttpService,
   AppCanActivateService,
   AlertService,
-  FeedService
+  FeedService,
+  ReferenceService
   ],
   bootstrap: [ AppComponent ]
 })

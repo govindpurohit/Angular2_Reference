@@ -4,6 +4,7 @@ var SCRAPPER = require('./newsScrapper');
 const EXP = require('../middlewares/expression');
 const ALERTS = require('../middlewares/feeds');
 const async = require("async");
+const PURPOSE = "latestUpdates";
 
 exports.liveNews = function(){
   getUsers().then((users) => {
@@ -12,8 +13,8 @@ exports.liveNews = function(){
                   async.each(alerts,function (alert,callback1){
                     let exp = EXP.getExpression(alert);
                     Promise.all([  
-                      SCRAPPER.getTwitterNews(exp,alert._id),
-                      SCRAPPER.getGoogleNews(exp,alert._id)
+                      SCRAPPER.getTwitterNews(exp,alert._id,PURPOSE),
+                      SCRAPPER.getGoogleNews(exp,alert._id,PURPOSE)
                     ])
                     .then((data) => {console.log(data);})
                     .catch((err) => console.log(err))

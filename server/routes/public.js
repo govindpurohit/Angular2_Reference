@@ -79,7 +79,7 @@ router.post('/signin',(req,res) => {
 
         // return the information including token as JSON
         res.json({
-          user:{"firstName":user.firstName,"lastName":user.lastName,"email":user.email},
+          user:{"firstName":user.firstName,"lastName":user.lastName,"email":user.email,"id":user._id},
           success: true,
           message: 'Enjoy SignIn!',
           secret_token: token

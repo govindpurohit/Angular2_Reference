@@ -4,9 +4,10 @@
  * Module dependencies.
  */
 
+var http = require('http');
 var app = require('../../server');
 var debug = require('debug')('reference:server');
-var http = require('http');
+var latest = require('../feature/newsScrapper');
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +21,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var io = require('socket.io')(server);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -89,3 +91,22 @@ function onListening() {
   debug('Listening on ' + bind);
   console.log('Listening on ' + bind);
 }
+
+var users=[];
+io.set("origins", "*:*");
+io.on('connection', function (client) {
+  console.log("Connection established with client");
+        client.on('register',(data) => {
+            client.uid = data.uid;
+            users.push(client.uid);
+            console.log("connected user id:"+data.uid);
+            client.emit('count'+client.uid , {msg:data.user});
+        })
+        client.on("getLatest",(data) => {
+          console.log("latest alert:"+data.alertId);
+          var lr = latest.getLatestUpdates(data.alertId).then((d) => {
+            console.log("latest data:"+d.length);
+            client.emit("latestReference"+data.alertId,d);
+          });
+        })
+});

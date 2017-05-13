@@ -2,6 +2,7 @@
   <tab class="scrollbar" id="style-15" (scroll)="onScroll($event)">
     <div *ngIf="noReferences">{{message}}</div>
     <div *ngIf = "loading" class="loader"></div>
+    <div id="snackbar" *ngIf = "showUpdate" (click)="addUpdates()">New References...</div>
     <div class="p-1" *ngFor="let r of ref;let i = index">
       <div class="message" *ngIf="!noReferences">
         <a href="{{r.sourceUrl}}" target="_blank">

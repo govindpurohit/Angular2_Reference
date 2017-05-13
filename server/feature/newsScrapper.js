@@ -2,6 +2,7 @@ var request = require('request');
 var cheerio = require('cheerio');
 var reference = require('../middlewares/db/reference');
 const async = require("async");
+const Promise = require('bluebird')
 
 exports.getNews = function (){
     var keyword = "ipl + gujarat";
@@ -95,7 +96,7 @@ function getRealTime(time){
 
 }
 
-exports.getGoogleNews = function (searchKeyword,id){
+exports.getGoogleNews = function (searchKeyword,id,purpose){
     return new Promise(function(resolve,reject){
             var keyword = searchKeyword;
             var news = [];
@@ -127,18 +128,12 @@ exports.getGoogleNews = function (searchKeyword,id){
                 }
                 if(news && news.length > 0){
                     async.each(news,function (n,callback1){
-                        rdas(n).then((data) => {
+                        rdas(n,purpose).then((data) => {
                             console.log("google news saved");
-                            // callback1();
                         })
                     },function(err){
-                        // console.log("google news completed.");
                         reject();
                     })
-                    // removeDuplicateAndSave(news).then((data) => {
-                    //     console.log("google ended");
-                    //     resolve();
-                    // });
                 }
                 else{
                     console.log("No news.");
@@ -152,7 +147,7 @@ exports.getGoogleNews = function (searchKeyword,id){
     });
 }
 
-exports.getTwitterNews = function (searchWord,id){
+exports.getTwitterNews = function (searchWord,id,purpose){
     return new Promise(function(resolve,reject){
         // var keyword = "narendra modi + india";
         var keyword = searchWord;
@@ -193,18 +188,12 @@ exports.getTwitterNews = function (searchWord,id){
                 } 
                 if(tweeterNews && tweeterNews.length > 0){
                     async.each(tweeterNews,function (tweet,callback1){
-                        rdas(tweet).then((data) => {
+                        rdas(tweet,purpose).then((data) => {
                             console.log("tweet saved");
-                            // callback1();
                         })
                     },function(err){
-                        // console.log("tweet completed.");
                         reject();
-                    })
-                    // removeDuplicateAndSave(tweeterNews).then((data) => {
-                    //     console.log("tweet ended");
-                    //     resolve();
-                    // }); 
+                    }) 
                 }
                 else{
                     console.log("no tweets");
@@ -218,17 +207,23 @@ exports.getTwitterNews = function (searchWord,id){
         });
     }); 
 }
-
-function rdas(news){
+var latestUpdates = [];
+function rdas(news,purpose){
     return new Promise((resolve,reject) => {
         reference.isNewsExist(news).then((res) => {
             if(res !== true){
-                 reference.saveReference(news).then((data) => {
-                     resolve();
-                 }).catch((err) => {
-                     console.log("Error in saving news:"+err);
-                     reject();
-                 })
+                if(purpose === "firstTime"){
+                    reference.saveReference(news).then((data) => {
+                    resolve();
+                    }).catch((err) => {
+                        console.log("Error in saving news:"+err);
+                        reject();
+                    })
+                }
+                else{
+                    console.log("saving in latest");
+                    latestUpdates.push(news);
+                }
             }
             else{
                 console.log("not saved.");
@@ -237,34 +232,33 @@ function rdas(news){
     })
 }
 
-function removeDuplicateAndSave(news){
+exports.getLatestUpdates = function(alertId){
     return new Promise((resolve,reject) => {
-        var coll = news.slice(0); // clone news
-        (function insertOne() {
-            var record = coll.splice(0, 1)[0]; // get the first record of coll and reduce coll by one
-            reference.isNewsExist(record).then(function(data){
-                // console.log(" tweet url: "+record.sourceUrl);
-                if(data === true){
-                    // console.log("Tweets already Exist.");
-                }
-                else{
-                    reference.saveReference(record).then((data) => {
-                        // console.log("saved singleNews");
-                        if (coll.length == 0) {
-                            resolve();
-                        } else {
-                            setTimeout(insertOne, 0);
-                        }
-                    },
-                    (err) => {
-                        console.log("single news error:"+err);
-                        reject();
-                    })
-                }
-            },
-            function(e){
-                console.log("Error:"+e);
-            })
-        })();
+        console.log("latest updates length:"+latestUpdates.length);
+        var latest = latestUpdates.filter((reference) => {
+            return reference.feedReference == alertId;
+        });
+        console.log("After matching:"+latest.length);
+        setTimeout(removeAndSaveReference,2000,latest);
+        resolve(latest);
     })
+}
+
+function removeAndSaveReference(latestReference){
+    if(latestReference.length > 0){
+        async.each(latestReference,(ref) => {
+            let index = latestUpdates.indexOf(ref);
+            if(index > -1){
+                latestUpdates.splice(index,1);
+            }  
+            reference.saveReference(ref).then((data) => {
+            },
+            (err) => {
+                console.log("saving latest- Error:"+err);
+            })
+        },
+        (err) => {
+            console.log("Error:"+err);
+        })
+    }
 }

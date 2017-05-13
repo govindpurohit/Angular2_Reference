@@ -45,20 +45,27 @@ router.post('/',(req,res) => {
     if(body && ((optionalKeywords && optionalKeywords.length > 0) || (requiredKeywords && requiredKeywords.length > 0))){
         req.body.name = optionalKeywords[0] || requiredKeywords[0];
         Feed.saveFeed(body).then((data) => {
-            let v = exp.getExpression(data);
-            news.getGoogleNews(v,data._id).then((data) => {
-                // res.send(data);
-            },
-            (err) => {
-                console.log("Error:"+err);
-                // res.send(err);
-            });
-            news.getTwitterNews(v,data._id).then((data) => {
+            let expression = exp.getExpression(data);
+            let purpose = "firstTime";
+            // news.getGoogleNews(v,data._id).then((data) => {
+            //     // res.send(data);
+            // },
+            // (err) => {
+            //     console.log("Error:"+err);
+            //     // res.send(err);
+            // });
+            // news.getTwitterNews(v,data._id).then((data) => {
 
-            },
-            (err) => {
-                console.log("Error:"+err);
-            })
+            // },
+            // (err) => {
+            //     console.log("Error:"+err);
+            // })
+            Promise.all([  
+                      news.getTwitterNews(expression,data._id,purpose),
+                      news.getGoogleNews(expression,data._id,purpose)
+                    ])
+                    .then((data) => {})
+                    .catch((err) => console.log(err))
             res.send({"success":true,"message":"Alert saved.","data":data});
         },
         (err) => {

@@ -18,6 +18,7 @@ var authController = require('./server/middlewares/auth/auth');
 var scrapHandler = require('./server/feature/scrapHandler');
 
 var app = express(); 
+// var socket = require('./server/bin/www');
 
 if(process.env.NODE_ENV !== 'test') {
     mongoose.connect(config.database_dev_uri);
