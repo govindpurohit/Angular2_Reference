@@ -18,13 +18,13 @@ export class FeedsComponent implements OnInit {
   public allRef = [];
   public dataLimit = 10;
   public message = "";
-  private stopScroll = false;
-  private page = 1;
-  private noReferences = false;
-  private loading = false;
-  private myObservable : any;
-  private showUpdate = false;
-  private update = [];
+  public stopScroll = false;
+  public page = 1;
+  public noReferences = false;
+  public loading = false;
+  public myObservable : any;
+  public showUpdate = false;
+  public update = [];
 
   constructor(public alertService : AlertService,public feedService : FeedService, public renderer : Renderer, public localStorageService : LocalStorageService, public referenceService : ReferenceService) {
     this.alertService.singleAlert$.subscribe(
