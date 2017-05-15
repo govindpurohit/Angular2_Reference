@@ -6,7 +6,7 @@
   "copyright": "Copyright 2017 creativeLabs Łukasz Holeczek",
   "license": "MIT",
   "scripts": {
-    "preinstall": "npm install -g typescript && npm install -g @angular/cli",
+    //"preinstall": "npm install -g typescript && npm install -g @angular/cli",
     "ng": "ng",
     "start": "ng build && node ./server/bin/www",
     "test": "ng test",
@@ -17,6 +17,7 @@
   "dependencies": {
     "@angular/common": "2.4.9",
     "@angular/compiler": "2.4.9",
+    "@angular/cli": "1.0.0-rc.1",
     "@angular/compiler-cli": "2.4.9",
     "@angular/core": "2.4.9",
     "@angular/forms": "2.4.9",
@@ -53,7 +54,6 @@
     "zone.js": "0.7.2"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0-rc.1",
     "@types/jasmine": "2.5.45",
     "@types/node": "7.0.8",
     "codelyzer": "2.0.1",
