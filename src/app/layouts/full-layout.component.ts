@@ -39,7 +39,7 @@ export class FullLayoutComponent implements OnInit {
           this.alertService.setSingleAlert(result.data[0]);
         }
         else if(result && result.data && result.data.length == 0){
-          this.router.navigate(['/alert']);
+          this.router.navigate(['/noalert']);
         }
         else{
           this.router.navigate(['/login']);

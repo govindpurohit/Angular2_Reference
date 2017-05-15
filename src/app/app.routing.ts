@@ -54,6 +54,14 @@ export const routes: Routes = [
     data:{
       title: 'alert'
     }
+  },
+  {
+    path: 'noalert',
+    component: SimpleLayoutComponent,
+    canActivate: [AppCanActivateService],
+    data:{
+      title: 'noalert'
+    }
   }
 ];
 

@@ -24,7 +24,6 @@ export class ReferenceService {
      this.socket.emit("getLatest",{"alertId":id});
      let observable = new Observable<Array<string>>(observer => {
       this.socket.on('latestReference'+this.alertId, (data) => {
-        console.log("For id: "+ this.alertId+" Get latest on ui: "+JSON.stringify(data));
         observer.next(data);    
       });
       return () => {
@@ -33,18 +32,4 @@ export class ReferenceService {
     })     
     return observable;
    }
-
-   getLatestReference() {
-    let observable = new Observable<any[]>(observer => {
-      this.socket.on('latestReference'+this.alertId, (data) => {
-        console.log("Get latest on ui: "+JSON.stringify(data));
-        observer.next(data);    
-      });
-      return () => {
-        this.socket.disconnect();
-      };  
-    })     
-    return observable;
-  }
-
 }

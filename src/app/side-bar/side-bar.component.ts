@@ -37,7 +37,10 @@ export class SideBarComponent implements OnInit {
           alert("Can't deleted.");
         }
         else{
-          if(index === this.alerts.length){ // here this.alerts.length taken beacuse alert allready removed.
+          if(this.alerts.length == 0){
+            this.router.navigate(['/noalert']);
+          }
+          else if(index === this.alerts.length){ // here this.alerts.length taken beacuse alert allready removed.
             this.alertService.setSingleAlert(this.alerts[0]);
             this.nindex = 0;
           }

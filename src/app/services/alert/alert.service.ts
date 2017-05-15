@@ -47,7 +47,6 @@ export class AlertService {
   }
 
   deleteAlertById(id){
-    console.log("delete id:"+id);
     return this.appBaseService.delete('/api/alerts/'+id).map(res => res.json())
     .catch(this.handleError);
   }

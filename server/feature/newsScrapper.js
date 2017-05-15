@@ -4,59 +4,6 @@ var reference = require('../middlewares/db/reference');
 const async = require("async");
 const Promise = require('bluebird')
 
-exports.getNews = function (){
-    var keyword = "ipl + gujarat";
-    var news = [];
-    request('https://www.google.co.in/search?q='+keyword+'&tbm=nws&tbs=qdr:h&bav=on.2,or.r_cp.&biw=1309&bih=678&dpr=1&lr=lang_en', function (error, response, html) {
-    if (!error && response.statusCode == 200) {
-        var $ = cheerio.load(html);
-        console.log("*****************************");
-        var mainDiv = $('div.g');
-        console.log("Total News:"+mainDiv.length);
-        for(var i=0;i<mainDiv.length;i++){
-        // console.log("Image:"+$(mainDiv).eq(i).find('img').attr('src'));
-        // console.log("Title:"+$(mainDiv).eq(i).find('a').attr('href').split('=')[1].split('&')[0]);
-        // console.log("First Line:"+$(mainDiv).eq(i).find('.slp').text());
-        // console.log("Detail:"+$(mainDiv).eq(i).find('.st').text());
-        // console.log("--------------------");
-            var time = $(mainDiv).eq(i).find('.slp').text().split('-')[1].trim().split(" ");
-            var ct = getRealTime(time);
-            
-            var singleNews = {"title":$(mainDiv).eq(i).find('a').text().trim(),
-                    "imageUrl":$(mainDiv).eq(i).find('img').attr('src'),
-                    "newsUrl":$(mainDiv).eq(i).find('a').attr('href').split('=')[1].split('&')[0],
-                    "headline":$(mainDiv).eq(i).find('.slp').text().split('-')[0],
-                    "detail":$(mainDiv).eq(i).find('.st').text(),
-                    "createdAt":ct
-                    };
-            
-            mention.isNewsExist(singleNews).then(function(data){
-                if(data === true){
-                    console.log("News already Exist.");
-                }
-                else{
-                    console.log("News saved.");
-                    mention.saveNews(data);
-                }
-            },
-            function(e){
-                console.log("Error:"+e);
-            })
-        }
-    }
-    else{
-        console.log("my error: "+error);
-    }
-    }); 
-}
-
-exports.getAllNews = function(expression,id){
-    // mention.getAllNews(limit).then(function(data){res.send(data);});
-    // mention.getAllNews(limit).then(function(data){res.send(data);});
-    // this.getGoogleNews(expression,id);
-    // this.getTwitterNews(expression,id);
-}
-
 function getRealTime(time){
     const seconds = 60;
     var dt = new Date();
@@ -107,11 +54,6 @@ exports.getGoogleNews = function (searchKeyword,id,purpose){
                 var mainDiv = $('div.g');
                 console.log("Total News:"+mainDiv.length);
                 for(var i=0;i<mainDiv.length;i++){
-                // console.log("Image:"+$(mainDiv).eq(i).find('img').attr('src'));
-                // console.log("Title:"+$(mainDiv).eq(i).find('a').attr('href').split('=')[1].split('&')[0]);
-                // console.log("First Line:"+$(mainDiv).eq(i).find('.slp').text());
-                // console.log("Detail:"+$(mainDiv).eq(i).find('.st').text());
-                // console.log("--------------------");
                     var time = $(mainDiv).eq(i).find('.slp').text().split('-')[1].trim().split(" ");
                     var ct = getRealTime(time);
                     // console.log("google date:"+ct+" scrapper date:"+time[1]);
@@ -128,7 +70,7 @@ exports.getGoogleNews = function (searchKeyword,id,purpose){
                 }
                 if(news && news.length > 0){
                     async.each(news,function (n,callback1){
-                        rdas(n,purpose).then((data) => {
+                        saveLatest(n,purpose).then((data) => {
                             console.log("google news saved");
                         })
                     },function(err){
@@ -160,13 +102,6 @@ exports.getTwitterNews = function (searchWord,id,purpose){
                 var mainDiv = $('ol.stream-items').children();
                 console.log("Tweets:"+$(mainDiv).length);
                 for(let i=0;i<$(mainDiv).length;i++){
-                    // let singleTweet = {
-                    //     "tweeterUserName" : mainDiv.eq(i).find('a.js-action-profile').text().trim(),
-                    //     "tweeterUserUrl" : "https://twitter.com"+mainDiv.eq(i).find('a.js-action-profile').attr('href').trim(),
-                    //     "tweetText" :  mainDiv.eq(i).find('p.tweet-text').text().trim(),
-                    //     "tweeterProfileAvatar" :  mainDiv.eq(i).find('img.js-action-profile-avatar').attr('src').trim()
-                    // }
-                    // console.log("twitter timestamp:"+mainDiv.eq(i).find('span.js-short-timestamp').attr("data-time-ms"));
                     var time = mainDiv.eq(i).find('span.js-short-timestamp').attr("data-time-ms");
                     var ct = getRealTime(parseInt(time));
                     try{
@@ -188,7 +123,7 @@ exports.getTwitterNews = function (searchWord,id,purpose){
                 } 
                 if(tweeterNews && tweeterNews.length > 0){
                     async.each(tweeterNews,function (tweet,callback1){
-                        rdas(tweet,purpose).then((data) => {
+                        saveLatest(tweet,purpose).then((data) => {
                             console.log("tweet saved");
                         })
                     },function(err){
@@ -208,7 +143,7 @@ exports.getTwitterNews = function (searchWord,id,purpose){
     }); 
 }
 var latestUpdates = [];
-function rdas(news,purpose){
+function saveLatest(news,purpose){
     return new Promise((resolve,reject) => {
         reference.isNewsExist(news).then((res) => {
             if(res !== true){

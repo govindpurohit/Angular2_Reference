@@ -8,8 +8,11 @@
         <a href="{{r.sourceUrl}}" target="_blank">
         <div class="py-1 pb-3 mr-1 float-left">
           <div class="avatar">
-            <img src="{{r.imageUrl}}" class="img-avatar" alt="">
-            <span class="avatar-status badge-success"></span>
+            <img src="{{r.imageUrl}}" class="img-avatar" style="width:45px;height:45px;" alt="">
+            <span class="avatar-status" style="width:17px;height:17px;background-color: white;right:-10px">
+              <img src="https://twitter.com/favicon.ico" *ngIf="r.type=='twitter'" style="vertical-align: inherit">
+              <img src="https://www.google.com/s2/favicons?domain=www.google.com" *ngIf="r.type=='news'" style="vertical-align: inherit">
+            </span>
           </div>
         </div>
         <div>

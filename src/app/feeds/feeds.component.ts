@@ -25,15 +25,6 @@ export class FeedsComponent implements OnInit {
   private myObservable : any;
   private showUpdate = false;
   private update = [];
-  // private socket = io();
-//   { 
-//     "name":"",
-//     "sourceUrl": "", 
-//     "detail": "",
-//     "imageUrl": "",
-//     "createdAt": "",
-//     "feedReference": ""
-// }
 
   constructor(public alertService : AlertService,public feedService : FeedService, public renderer : Renderer, public localStorageService : LocalStorageService, public referenceService : ReferenceService) {
     this.alertService.singleAlert$.subscribe(
@@ -61,8 +52,7 @@ export class FeedsComponent implements OnInit {
             this.noReferences = true;
             this.ref = [];
             console.log("no data reference.");
-          }
-          
+          } 
         });
     });
   }
@@ -70,7 +60,6 @@ export class FeedsComponent implements OnInit {
   ngOnInit() {  
     this.connectToSocket();
     setInterval(()=>{
-      console.log("interval");
       this.getLatest(this.alert._id);
     }, 1000 * 60 * 6);
   }
@@ -121,15 +110,12 @@ export class FeedsComponent implements OnInit {
   }
 
   connectToSocket(){
-    // this.socket.emit("register",{"uid":this.localStorageService.getLoginInfo().user.id});
     this.referenceService.registerUser();
   }
 
   getLatest(id){
     this.myObservable =this.referenceService.getLatest(id).subscribe(message => {
-      console.log("getLatest ref:"+message.length);
       if(message.length > 0){
-        console.log("hi > 0");
         this.showUpdate = true;
         this.update = message;
       }
@@ -144,11 +130,5 @@ export class FeedsComponent implements OnInit {
     for(let i=0;i<updates.length;i++){
       this.ref.unshift(updates[i]);
     }
-    console.log("real: "+JSON.stringify(this.ref));
   }
-
-  ngOnDestroy() {
-    // this.myObservable.unsubscribe();
-}
-
 }

@@ -12,21 +12,21 @@
             <p class="text-muted">Your alert will collect mentions based on the following rules</p>
             <form #f="ngForm" name="form" novalidate>
               <div class="form-group">
-                <label for="company">Optional Keywords</label>
-                <p class="text-muted" style="font-size: .8em">Your alert will collect mentions that contain any of these keywords, plus all required keywords.</p>
-                <rl-tag-input [(ngModel)]="model.optionalKeywords" name="optionalKeywords" placeholder="Add a keyword..."></rl-tag-input>
+                <label for="company" style="margin-bottom: 0px">Optional Keywords</label>
+                <p class="text-muted" style="font-size: .8em;margin-bottom: 0px">Your alert will collect mentions that contain any of these keywords, plus all required keywords.</p>
+                <rl-tag-input [(ngModel)]="model.optionalKeywords" name="optionalKeywords" placeholder="Add a keyword..." style="margin-bottom: 0px"></rl-tag-input>
               </div><br>
 
               <div class="form-group">
-                <label for="company">Required Keywords</label>
-                <p class="text-muted" style="font-size: .8em">Your alert will collect mentions that contain all of these keywords.</p>
-                <rl-tag-input [(ngModel)]="model.requiredKeywords" name="requiredKeywords" placeholder="Add a keyword..."></rl-tag-input>
+                <label for="company" style="margin-bottom: 0px">Required Keywords</label>
+                <p class="text-muted" style="font-size: .8em;margin-bottom: 0px">Your alert will collect mentions that contain all of these keywords.</p>
+                <rl-tag-input [(ngModel)]="model.requiredKeywords" name="requiredKeywords" placeholder="Add a keyword..." style="margin-bottom: 0px"></rl-tag-input>
               </div><br>
 
                <div class="form-group">
-                <label for="company">Excluded Keywords</label>
-                <p class="text-muted" style="font-size: .8em">Your alert will not bring in mentions with any of the following keywords.</p>
-                <rl-tag-input [(ngModel)]="model.excludedKeywords" name="excludedKeywords" placeholder="Add a keyword..."></rl-tag-input>
+                <label for="company" style="margin-bottom: 0px">Excluded Keywords</label>
+                <p class="text-muted" style="font-size: .8em;margin-bottom: 0px">Your alert will not bring in mentions with any of the following keywords.</p>
+                <rl-tag-input [(ngModel)]="model.excludedKeywords" name="excludedKeywords" placeholder="Add a keyword..." style="margin-bottom: 0px"></rl-tag-input>
               </div>
               <button type="button" class="btn btn-block btn-success" (click)="f.valid && save()">Create Alert</button>
               </form>

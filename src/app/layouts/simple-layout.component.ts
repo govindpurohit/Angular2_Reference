@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-dashboard',
-  template: '<router-outlet></router-outlet>',
+  selector: 'app-simplelayout',
+  templateUrl: './simple-layout.component.html'
 })
 export class SimpleLayoutComponent implements OnInit {
 
