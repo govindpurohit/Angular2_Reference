@@ -6,7 +6,6 @@
   "copyright": "Copyright 2017 creativeLabs Łukasz Holeczek",
   "license": "MIT",
   "scripts": {
-    "preinstall": "npm install -g typescript && npm install -g @angular/cli",
     "ng": "ng",
     "start": "ng build && node ./server/bin/www",
     "test": "ng test",
