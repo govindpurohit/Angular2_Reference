@@ -8,6 +8,7 @@
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
+    "preinstall": "npm install -g angular-cli",
     "ng": "ng",
     "start": "ng build && node ./server/bin/www",
     "test": "ng test",
