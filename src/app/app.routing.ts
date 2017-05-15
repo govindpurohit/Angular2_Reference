@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AlertComponent } from './alert/alert.component';
 import { FeedsComponent } from './feeds/feeds.component';
+import { UpdateAlertComponent } from './update-alert/update-alert.component';
 
 //services
 import { AppCanActivateService } from './services/app-can-activate/app-can-activate.service';
@@ -61,6 +62,14 @@ export const routes: Routes = [
     canActivate: [AppCanActivateService],
     data:{
       title: 'noalert'
+    }
+  },
+  {
+    path: 'editalert',
+    component: UpdateAlertComponent,
+    canActivate: [AppCanActivateService],
+    data:{
+      title: 'editalert'
     }
   }
 ];

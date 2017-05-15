@@ -1,0 +1,38 @@
+<div class="app flex-row align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card mx-2">
+          <div class="card-block p-2">
+            <div class="alert alert-danger alert-dismissable fade-in" *ngIf="error">
+              <a (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              {{errorMsg}}
+            </div>
+            <h1>Keywords Settings</h1>
+            <p class="text-muted">Your alert will collect mentions based on the following rules</p>
+            <form #f="ngForm" name="form" novalidate>
+              <div class="form-group">
+                <label for="company" style="margin-bottom: 0px">Optional Keywords</label>
+                <p class="text-muted" style="font-size: .8em;margin-bottom: 0px">Your alert will collect mentions that contain any of these keywords, plus all required keywords.</p>
+                <rl-tag-input [(ngModel)]="model.optionalKeywords" name="optionalKeywords" placeholder="Add a keyword..." style="margin-bottom: 0px"></rl-tag-input>
+              </div><br>
+
+              <div class="form-group">
+                <label for="company" style="margin-bottom: 0px">Required Keywords</label>
+                <p class="text-muted" style="font-size: .8em;margin-bottom: 0px">Your alert will collect mentions that contain all of these keywords.</p>
+                <rl-tag-input [(ngModel)]="model.requiredKeywords" name="requiredKeywords" placeholder="Add a keyword..." style="margin-bottom: 0px"></rl-tag-input>
+              </div><br>
+
+               <div class="form-group">
+                <label for="company" style="margin-bottom: 0px">Excluded Keywords</label>
+                <p class="text-muted" style="font-size: .8em;margin-bottom: 0px">Your alert will not bring in mentions with any of the following keywords.</p>
+                <rl-tag-input [(ngModel)]="model.excludedKeywords" name="excludedKeywords" placeholder="Add a keyword..." style="margin-bottom: 0px"></rl-tag-input>
+              </div>
+              <button type="button" class="btn btn-block btn-success" (click)="f.valid && update()">Create Alert</button>
+              </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

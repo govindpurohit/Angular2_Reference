@@ -11,7 +11,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class AppHttpService {
 
-  private hostUrl = "http://localhost:3000";
+  // private hostUrl = "http://localhost:3000";
 
   constructor(public http: Http, public localStorage: LocalStorageService, private router: Router) { }
 
@@ -38,17 +38,22 @@ export class AppHttpService {
 
   get(url, params:any = {}, headerOptions:any = {}, doNotSendAuthorizationParam:boolean = false){
     let options = this.getHeader(headerOptions, params, doNotSendAuthorizationParam);
-    return this.http.get(this.hostUrl+url, options).catch(this.handleError);
+    return this.http.get(url, options).catch(this.handleError);
   }
 
   post(url, params:any = {}, headerOptions:any = {}, doNotSendAuthorizationParam:boolean = false){
     let options = this.getHeader(headerOptions, {}, doNotSendAuthorizationParam);
-    return this.http.post(this.hostUrl+url, params, options).catch(this.handleError);
+    return this.http.post(url, params, options).catch(this.handleError);
+  }
+
+  put(url, params:any = {}, headerOptions:any = {}, doNotSendAuthorizationParam:boolean = false){
+    let options = this.getHeader(headerOptions, {}, doNotSendAuthorizationParam);
+    return this.http.put(url, params, options).catch(this.handleError);
   }
 
   delete(url,headerOptions:any = {}, doNotSendAuthorizationParam:boolean = false){
     let options = this.getHeader(headerOptions, {}, doNotSendAuthorizationParam);
-    return this.http.delete(this.hostUrl+url,options).catch(this.handleError);
+    return this.http.delete(url,options).catch(this.handleError);
   }
 
   handleError(error: Response | any){

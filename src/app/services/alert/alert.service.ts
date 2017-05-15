@@ -27,6 +27,10 @@ export class AlertService {
     return this.appBaseService.post('/api/alerts',alert).map(res => res.json());
   }
 
+  updateAlert(alert){
+    return this.appBaseService.put('api/alert',alert).map(res => res.json());
+  }
+
   // Service message commands
   setAlerts(mission) {
     this.alertSource.next(mission);

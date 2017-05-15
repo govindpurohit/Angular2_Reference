@@ -12,7 +12,7 @@ export class SignInService {
   constructor(private http:Http) { }
 
   postSigninInfo(user){
-      return this.http.post('http://localhost:3000/api/signin', user).map(res => res.json())
+      return this.http.post('/api/signin', user).map(res => res.json())
       .catch(this.handleError);
   }
 

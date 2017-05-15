@@ -29,6 +29,11 @@ export class SideBarComponent implements OnInit {
     this.alertService.setSingleAlert(alert);
   }
 
+  editAlert(alert,i){
+    console.log("alert:"+alert);
+    this.alertService.setSingleAlert(alert);
+    this.router.navigate(['/editalert'])
+  }
   deleteAlert(alert,index){
     if(confirm("Are you sure? Do you want to delete this alert?")){
       this.alerts.splice(index,1);

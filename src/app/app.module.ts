@@ -38,6 +38,7 @@ import { ReferenceService } from './services/reference/reference.service';
 import {RlTagInputModule} from 'angular2-tag-input';
 import { HeaderComponent } from './header/header.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
+import { UpdateAlertComponent } from './update-alert/update-alert.component';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { SideBarComponent } from './side-bar/side-bar.component';
     AlertComponent,
     HeaderComponent,
     SideBarComponent,
+    UpdateAlertComponent,
   ],
   providers: [{
     provide: LocationStrategy,
