@@ -8,7 +8,7 @@
   "scripts": {
     "preinstall": "npm install --save-dev @angular/cli@latest && npm install --save-dev @angular/compiler-cli@latest",
     "ng": "ng",
-    "start": "ng build && node ./server/bin/www",
+    "start": "ng build --aot -prod && node ./server/bin/www",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
