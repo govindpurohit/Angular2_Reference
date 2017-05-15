@@ -3,12 +3,10 @@
   "version": "1.0.0-alpha.4",
   "description": "Open Source Bootstrap Admin Template",
   "author": "",
-  "url": "http://coreui.io",
   "copyright": "Copyright 2017 creativeLabs Łukasz Holeczek",
   "license": "MIT",
-  "angular-cli": {},
   "scripts": {
-    "preinstall": "npm install -g @angular/cli@1.0.0-rc.1",
+    "preinstall": "npm uninstall -g angular-cli && npm install -g @angular/cli",
     "ng": "ng",
     "start": "ng build && node ./server/bin/www",
     "test": "ng test",
