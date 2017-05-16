@@ -6,8 +6,8 @@
   "copyright": "Copyright 2017",
   "license": "MIT",
   "scripts": {
-    "preinstall": "",
-    "postinstall": "ng build --aot -prod ",
+    "preinstall": "npm install --save-dev @angular/cli@1.0.0-rc.1 && npm install --save-dev @angular/compiler-cli@2.4.9",
+    "postinstall": "ng build --aot -prod",
     "ng": "ng",
     "start": "node ./server/bin/www",
     "test": "ng test",
