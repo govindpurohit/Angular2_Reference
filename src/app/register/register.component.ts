@@ -19,7 +19,24 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    this.signupService.postSignupInfo(this.model).subscribe(result => {
+    if(this.model.firstName === undefined || this.model.firstName == ""){
+      this.error = true;
+      this.errorMsg = "Firstname is required.";
+    }
+    else if(this.model.lastName === undefined || this.model.lastName == ""){
+      this.error = true;
+      this.errorMsg = "Lastname is required.";
+    }
+    else if(this.model.email === undefined || this.model.email == ""){
+      this.error = true;
+      this.errorMsg = "Email is required.";
+    }
+    else if(this.model.password === undefined || this.model.password == ""){
+      this.error = true;
+      this.errorMsg = "Password is required.";
+    }
+    else{
+      this.signupService.postSignupInfo(this.model).subscribe(result => {
             if(!result.success){
               this.error = !result.success;
               this.errorMsg = result.message
@@ -32,6 +49,11 @@ export class RegisterComponent implements OnInit {
              console.log(error);
              this.error = error;
          });
+    }
+  }
+
+  closeError(){
+    this.error = false;
   }
 
 }

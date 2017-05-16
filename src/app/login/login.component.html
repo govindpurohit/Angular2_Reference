@@ -5,24 +5,24 @@
         <div class="card-group mb-0">
           <div class="card p-2">
             <div class="card-block">
-              <div class="alert alert-danger alert-dismissable fade-in" *ngIf="error">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <div class="alert alert-danger alert-dismissable" *ngIf="error">
+                <a (click)="closeError()" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 {{errorMsg}}
               </div>
               <h1>Login</h1>
               <p class="text-muted">Sign In to your account</p>
-              <form #f="ngForm" name="form" (ngSubmit)="f.valid && login()" novalidate>
+              <form #f="ngForm" name="form" (ngSubmit)="login()" novalidate>
                 <div class="input-group mb-1" [ngClass]="{ 'has-danger': f.submitted && !email.valid}">
                   <span class="input-group-addon"><i class="icon-user"></i></span>
                   <input type="email" class="form-control" placeholder="Email" name="email" [(ngModel)]="model.email" #email="ngModel" required>
                 </div>
-                <small *ngIf="f.submitted && !email.valid" class="help-block">Email is required</small>
+                <!--<small *ngIf="f.submitted && !email.valid" class="help-block">Email is required</small>-->
                 
                 <div class="input-group mb-2" [ngClass]="{ 'has-danger': f.submitted && !password.valid}">
                   <span class="input-group-addon"><i class="icon-lock"></i></span>
                   <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="model.password" #password="ngModel" required>
                 </div>
-                <small *ngIf="f.submitted && !password.valid" class="help-block">Password is required</small>
+                <!--<small *ngIf="f.submitted && !password.valid" class="help-block">Password is required</small>-->
 
                 <div class="row">
                   <div class="col-6">

@@ -28,7 +28,18 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.signinService.postSigninInfo(this.model).subscribe(result => {
+    console.log("My email:"+this.model.email);
+    if(this.model.email === undefined || this.model.email == ""){
+      this.error = true;
+      this.errorMsg = "Please enter EmailId."
+    }
+    else if(this.model.password === undefined || this.model.password == ""){
+      this.error = true;
+      this.errorMsg = "Please enter Password."
+
+    }
+    else{
+      this.signinService.postSigninInfo(this.model).subscribe(result => {
             if(!result.success){
               this.error = !result.success;
               this.errorMsg = result.message
@@ -44,6 +55,11 @@ export class LoginComponent implements OnInit {
              console.log(error);
              this.error = error;
          });
+    }
+  }
+
+  closeError(){
+    this.error= false;
   }
 
 }
