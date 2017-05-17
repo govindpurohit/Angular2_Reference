@@ -54,18 +54,23 @@ exports.getGoogleNews = function (searchKeyword,id,purpose){
                 var mainDiv = $('div.g');
                 console.log("Total News:"+mainDiv.length);
                 for(var i=0;i<mainDiv.length;i++){
-                    var time = $(mainDiv).eq(i).find('.slp').text().split('-')[1].trim().split(" ");
-                    var ct = getRealTime(time);
-                    // console.log("google date:"+ct+" scrapper date:"+time[1]);
-                    var singleNews = {"name":$(mainDiv).eq(i).find('a').text().trim(),
-                            "imageUrl":$(mainDiv).eq(i).find('img').attr('src'),
-                            "sourceUrl":$(mainDiv).eq(i).find('a').attr('href').split('=')[1].split('&')[0],
-                            "headline":$(mainDiv).eq(i).find('.slp').text().split('-')[0],
-                            "detail":$(mainDiv).eq(i).find('.st').text(),
-                            "createdAt":ct,
-                            "type": "news",
-                            "feedReference":id
-                            };
+                    try{
+                        var time = $(mainDiv).eq(i).find('.slp').text().split('-')[1].trim().split(" ");
+                        var ct = getRealTime(time);
+                        var singleNews = {"name":$(mainDiv).eq(i).find('a').text().trim(),
+                                "imageUrl":$(mainDiv).eq(i).find('img').attr('src'),
+                                "sourceUrl":$(mainDiv).eq(i).find('a').attr('href').split('=')[1].split('&')[0],
+                                "headline":$(mainDiv).eq(i).find('.slp').text().split('-')[0],
+                                "detail":$(mainDiv).eq(i).find('.st').text(),
+                                "createdAt":ct,
+                                "type": "news",
+                                "feedReference":id
+                                };
+                    }
+                    catch(err){
+                        console.log("Error:"+err);
+                    }
+                    
                     news.push(singleNews);
                 }
                 if(news && news.length > 0){

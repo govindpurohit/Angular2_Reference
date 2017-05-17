@@ -70,7 +70,7 @@ export class UpdateAlertComponent implements OnInit {
           alert("Can't deleted.");
         }
         else{
-          localStorage.removeItem("editAlert");
+            this.localStorage.deleteEditAlert();
             this.router.navigate(['/feeds']);
         }
       });
