@@ -10,9 +10,11 @@ import { LocalStorageService } from '../services/local-storage/local-storage.ser
 })
 export class HeaderComponent implements OnInit {
 
+  user : any = {};
   constructor(public localStorageService : LocalStorageService, public route : Router) { }
 
   ngOnInit() {
+    this.user = this.localStorageService.getLoginInfo();
   }
 
    public toggled(open: boolean): void {
