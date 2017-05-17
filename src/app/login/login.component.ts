@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
     let userDetails = appLocalStorage.getLoginInfo();
     if(userDetails){
       //user is logged in
-      // this.router.navigate(['/feeds']);
       this.appLocalStorage.clear();
     }
   }
@@ -28,7 +27,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    console.log("My email:"+this.model.email);
     if(this.model.email === undefined || this.model.email == ""){
       this.error = true;
       this.errorMsg = "Please enter EmailId."
