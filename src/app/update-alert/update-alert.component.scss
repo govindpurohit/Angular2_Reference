@@ -1,0 +1,235 @@
+//colors
+$color_silver_chalice_approx: #aaa;
+$white:  white;
+
+//@extend-elements
+//original selectors
+//.float-label-control input:focus, .float-label-control textarea:focus
+%extend_1 {
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: none;
+	border-bottom-width: 2px;
+	padding-bottom: 0;
+}
+
+//original selectors
+//.float-label-control input, .float-label-control textarea
+%extend_2 {
+	display: block;
+	width: 100%;
+	padding: 0.1em 0 1px 0;
+	border: none;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 0;
+	border-bottom: 1px solid $color_silver_chalice_approx;
+	outline: none;
+	margin: 0;
+	background: none;
+}
+
+//original selectors
+//.float-label-control input.empty +label, .float-label-control textarea.empty +label
+%extend_3 {
+	top: 0.1em;
+	font-size: 1.5em;
+	animation: none;
+}
+
+
+.float-label-control {
+	position: relative;
+	margin-bottom: 1.5em;
+	::-webkit-input-placeholder {
+		color: transparent;
+	}
+	:-moz-placeholder {
+		color: transparent;
+	}
+	::-moz-placeholder {
+		color: transparent;
+	}
+	:-ms-input-placeholder {
+		color: transparent;
+	}
+	input {
+		font-size: 1.3em;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: none;
+		@extend %extend_2;
+		&:-webkit-autofill {
+			background-color: transparent !important;
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: 0 0 0 1000px $white inset !important;
+		}
+		&:focus {
+			@extend %extend_1;
+		}
+		&.empty + label {
+			@extend %extend_3;
+		}
+		&:not(.empty) {
+			+ label {
+				z-index: 1;
+			}
+			&:focus + label {
+				color: $color_silver_chalice_approx;
+			}
+		}
+	}
+	textarea {
+		font-size: 1.3em;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: none;
+		@extend %extend_2;
+		padding: 0.1em 0 5px 0;
+		&:-webkit-autofill {
+			background-color: transparent !important;
+			//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+			box-shadow: 0 0 0 1000px $white inset !important;
+		}
+		&:focus {
+			@extend %extend_1;
+			padding-bottom: 4px;
+		}
+		&.empty + label {
+			@extend %extend_3;
+		}
+		&:not(.empty) {
+			+ label {
+				z-index: 1;
+			}
+			&:focus + label {
+				color: $color_silver_chalice_approx;
+			}
+		}
+	}
+	label {
+		font-size: 1.3em;
+		//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+		box-shadow: none;
+		position: absolute;
+		font-weight: normal;
+		top: -1.0em;
+		left: 0.08em;
+		color: $color_silver_chalice_approx;
+		z-index: -1;
+		font-size: 0.85em;
+		animation: float-labels 300ms none ease-out;
+		animation-play-state: running !important;
+	}
+	&.label-bottom {
+		label {
+			animation: float-labels-bottom 300ms none ease-out;
+		}
+		input:not(.empty) + label {
+			top: 3em;
+		}
+		textarea:not(.empty) + label {
+			top: 3em;
+		}
+	}
+}
+@keyframes float-labels {
+	0% {
+		opacity: 1;
+		color: $color_silver_chalice_approx;
+		top: 0.1em;
+		font-size: 1.5em;
+	}
+	20% {
+		font-size: 1.5em;
+		opacity: 0;
+	}
+	30% {
+		top: 0.1em;
+	}
+	50% {
+		opacity: 0;
+		font-size: 0.85em;
+	}
+	100% {
+		top: -1em;
+		opacity: 1;
+	}
+}
+@-webkit-keyframes float-labels {
+	0% {
+		opacity: 1;
+		color: $color_silver_chalice_approx;
+		top: 0.1em;
+		font-size: 1.5em;
+	}
+	20% {
+		font-size: 1.5em;
+		opacity: 0;
+	}
+	30% {
+		top: 0.1em;
+	}
+	50% {
+		opacity: 0;
+		font-size: 0.85em;
+	}
+	100% {
+		top: -1em;
+		opacity: 1;
+	}
+}
+@keyframes float-labels-bottom {
+	0% {
+		opacity: 1;
+		color: $color_silver_chalice_approx;
+		top: 0.1em;
+		font-size: 1.5em;
+	}
+	20% {
+		font-size: 1.5em;
+		opacity: 0;
+	}
+	30% {
+		top: 0.1em;
+	}
+	50% {
+		opacity: 0;
+		font-size: 0.85em;
+	}
+	100% {
+		top: 3em;
+		opacity: 1;
+	}
+}
+@-webkit-keyframes float-labels-bottom {
+	0% {
+		opacity: 1;
+		color: $color_silver_chalice_approx;
+		top: 0.1em;
+		font-size: 1.5em;
+	}
+	20% {
+		font-size: 1.5em;
+		opacity: 0;
+	}
+	30% {
+		top: 0.1em;
+	}
+	50% {
+		opacity: 0;
+		font-size: 0.85em;
+	}
+	100% {
+		top: 3em;
+		opacity: 1;
+	}
+}
+
+//colors
+$color_red_approx: #f70101;
+
+.btn-link {
+	font-weight: normal;
+	color: $color_red_approx;
+	cursor: pointer;
+	&:hover {
+		color: $color_red_approx;
+	}
+}

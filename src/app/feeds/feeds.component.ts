@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer } from '@angular/core';
+import { Component, OnInit, Renderer, ViewContainerRef } from '@angular/core';
 import * as io from 'socket.io-client';
 
 import { AlertService } from '../services/alert/alert.service';
@@ -35,7 +35,24 @@ export class FeedsComponent implements OnInit {
         this.loading = true;
         this.noReferences = false;
         this.showUpdate = false;
-        this.alertService.getReferenceByAlert(this.alert).subscribe((data) => {
+        this.getReferenceByAlert(); 
+    });
+  }
+
+  ngOnInit() {  
+    this.connectToSocket();
+    setInterval(()=>{
+      this.getLatest(this.alert._id);
+    }, 1000 * 60 * 6);
+  }
+  ngAfterViewInit(){
+    this.renderer.setElementStyle(document.getElementsByClassName('nav-tabs')[0],'display','none');
+    this.renderer.setElementStyle(document.getElementsByClassName('tab-content')[0],'max-width','70%');
+    this.renderer.setElementStyle(document.getElementsByClassName('tab-content')[0],'margin','0 auto');
+  }
+
+  getReferenceByAlert(){
+    this.alertService.getReferenceByAlert(this.alert).subscribe((data) => {
           this.allRef = data.data;
           this.loading = false;
           this.noReferences = false;
@@ -54,21 +71,7 @@ export class FeedsComponent implements OnInit {
             console.log("no data reference.");
           } 
         });
-    });
   }
-
-  ngOnInit() {  
-    this.connectToSocket();
-    setInterval(()=>{
-      this.getLatest(this.alert._id);
-    }, 1000 * 60 * 6);
-  }
-  ngAfterViewInit(){
-    this.renderer.setElementStyle(document.getElementsByClassName('nav-tabs')[0],'display','none');
-    this.renderer.setElementStyle(document.getElementsByClassName('tab-content')[0],'max-width','70%');
-    this.renderer.setElementStyle(document.getElementsByClassName('tab-content')[0],'margin','0 auto');
-  }
-
   onScroll(event) {
     let tracker = event.target;
     let limit = tracker.scrollHeight - tracker.clientHeight;

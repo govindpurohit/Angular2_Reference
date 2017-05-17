@@ -15,10 +15,12 @@ export class AlertService {
 // Observable string sources
   private alertSource = new Subject<String>();
   private singleAlertSource = new Subject<String>();
+  private editAlertSource = new Subject<String>();
 
   // Observable string streams
   alertSource$ = this.alertSource.asObservable();
   singleAlert$ = this.singleAlertSource.asObservable();
+  editAlert$ = this.editAlertSource.asObservable();
 
 
   constructor(public appBaseService : AppHttpService) { }
@@ -27,8 +29,8 @@ export class AlertService {
     return this.appBaseService.post('/api/alerts',alert).map(res => res.json());
   }
 
-  updateAlert(alert){
-    return this.appBaseService.put('api/alert',alert).map(res => res.json());
+  updateAlert(id,alert){
+    return this.appBaseService.put('api/alerts/'+id,alert).map(res => res.json());
   }
 
   // Service message commands
@@ -43,6 +45,10 @@ export class AlertService {
 
   setSingleAlert(singleAlert){
     this.singleAlertSource.next(singleAlert);
+  }
+
+  setEditAlert(alert){
+    this.editAlertSource.next(alert);
   }
 
   getReferenceByAlert(alert){

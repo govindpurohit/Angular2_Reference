@@ -1,7 +1,8 @@
-import { Component, OnInit, Renderer} from '@angular/core';
+import { Component, OnInit, Renderer, ViewContainerRef} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AlertService } from '../services/alert/alert.service';
+import { LocalStorageService } from '../services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -13,10 +14,25 @@ export class SideBarComponent implements OnInit {
   public alerts : any = [];
   public nindex = 0;
 
-  constructor(public alertService : AlertService, public render : Renderer, public router: Router) {
+  constructor(public alertService : AlertService, public render : Renderer, public router: Router, public localStorage : LocalStorageService) {
+    
     this.alertService.alertSource$.subscribe(
       alerts => {
         this.alerts = alerts;
+        var storedAlert = this.localStorage.getNextAlert();
+        if(storedAlert === undefined || storedAlert == null){
+
+        }
+        else{
+          let index = 0;
+          var indexObj = this.alerts.find(function(item, i){
+            if(item._id === storedAlert._id){
+              index = i;
+              return i;
+            }
+          });
+          this.nindex = index;
+        }
       }
     )
    }
@@ -30,9 +46,9 @@ export class SideBarComponent implements OnInit {
   }
 
   editAlert(alert,i){
-    console.log("alert:"+alert);
-    this.alertService.setSingleAlert(alert);
-    this.router.navigate(['/editalert'])
+    this.localStorage.setEditAlert(alert);
+    this.router.navigate(['/editalert']);
+    
   }
   deleteAlert(alert,index){
     if(confirm("Are you sure? Do you want to delete this alert?")){

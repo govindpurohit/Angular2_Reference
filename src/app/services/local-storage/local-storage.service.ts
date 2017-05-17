@@ -33,4 +33,24 @@ export class LocalStorageService {
     }
   }
 
+  setNextAlert(alert){
+    return localStorage.setItem(LocalStorageEnums.nextAlert, JSON.stringify(alert));
+  }
+
+  getNextAlert(){
+    return JSON.parse(localStorage.getItem(LocalStorageEnums.nextAlert));
+  }
+
+  setEditAlert(alert){
+     return localStorage.setItem(LocalStorageEnums.editAlert, JSON.stringify(alert));
+  }
+
+  getEditAlert(){
+    return JSON.parse(localStorage.getItem(LocalStorageEnums.editAlert));
+  }
+
+  deleteEditAlert(){
+    return localStorage.removeItem(LocalStorageEnums.editAlert);
+  }
+
 }

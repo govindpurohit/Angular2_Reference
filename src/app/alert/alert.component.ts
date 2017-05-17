@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { FeedService } from '../services/feed/feed.service';
 import { AlertService } from '../services/alert/alert.service';
+import { LocalStorageService } from '../services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-alert',
@@ -15,7 +16,7 @@ export class AlertComponent implements OnInit {
   model : any = {};
   error = false;
   errorMsg = '';
-  constructor(public alertService : AlertService, public route : Router) {
+  constructor(public alertService : AlertService, public route : Router, public localStorage : LocalStorageService) {
    }
 
   ngOnInit() {
@@ -33,7 +34,14 @@ export class AlertComponent implements OnInit {
     }
     else{
         this.alertService.saveAlert(this.model).subscribe((data) => {
-          this.route.navigate(['/feeds']);
+          if(data.success){
+            this.localStorage.setNextAlert(data.data);
+            this.route.navigate(['/feeds']);
+          }
+          else{
+            this.error = true;
+            this.errorMsg = data.message;
+          }
         });
     }
   }

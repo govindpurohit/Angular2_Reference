@@ -6,7 +6,7 @@
         </li>
         <ul class="nav" *ngFor="let alert of alerts;let i = index ">
           <li class="nav-item" (click)="getAlert(alert,i)">
-            <a class="nav-link" [class.active]="nindex === i"><i class="icon-speedometer"></i> {{alert.name}} <a title="Delete Alert" (click)="deleteAlert(alert,i)"><i class=" icon-settings pull-right"></i></a></a>
+            <a class="nav-link" [class.active]="nindex === i"><i class="icon-speedometer"></i> {{alert.name}} <a title="Edit Alert" (click)="editAlert(alert,i)"><i class=" icon-settings pull-right"></i></a></a>
           </li>
         </ul>
       </ul>

@@ -79,6 +79,26 @@ router.post('/',(req,res) => {
     
 });
 
+router.put('/:feedId',(req,res) => {
+    if(true){
+        Feed.getSingleFeedByUserId(req.params.feedId,req.decoded.sub).then((existedFeed) => {
+
+            Feed.updateFeed(existedFeed,req.body).then((data) => {
+                res.send({"success":true,"message":"Alert updated.","data":data})
+            },
+            (err) => {
+                res.send({"success":false,"message":"Not updated.","error":err});
+            })
+        },
+        (err) => {
+            res.send({"success":false,"message":"Not authorize person"});
+        })
+    }
+    else{
+        res.send({"success":false,"message":"Not authorize person"});
+    }
+});
+
 router.delete('/:feedId',(req,res) => {
     Feed.deleteFeedById(req.params.feedId).then((data) => {
         Reference.deleteReferenceByFeedId(req.params.feedId).then((data) => {
