@@ -21,7 +21,6 @@ export class SideBarComponent implements OnInit {
         this.alerts = alerts;
         var storedAlert = this.localStorage.getNextAlert();
         if(storedAlert === undefined || storedAlert == null){
-
         }
         else{
           let index = 0;
@@ -43,6 +42,7 @@ export class SideBarComponent implements OnInit {
   getAlert(alert,index){
     this.nindex = index;
     this.alertService.setSingleAlert(alert);
+    this.localStorage.setNextAlert(alert);
   }
 
   editAlert(alert,i){

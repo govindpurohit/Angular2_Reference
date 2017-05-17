@@ -71,6 +71,7 @@ export class UpdateAlertComponent implements OnInit {
         }
         else{
             this.localStorage.deleteEditAlert();
+            this.localStorage.deleteNextAlert();
             this.router.navigate(['/feeds']);
         }
       });

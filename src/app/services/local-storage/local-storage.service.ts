@@ -53,4 +53,8 @@ export class LocalStorageService {
     return localStorage.removeItem(LocalStorageEnums.editAlert);
   }
 
+  deleteNextAlert(){
+    return localStorage.removeItem(LocalStorageEnums.nextAlert);
+  }
+
 }
