@@ -161,8 +161,10 @@ function saveLatest(news,purpose){
                     })
                 }
                 else{
-                    console.log("saving in latest");
-                    latestUpdates.push(news);
+                    if(!checkLatestExist(news)){
+                        console.log("saving in latest");
+                        latestUpdates.push(news);
+                    }
                 }
             }
             else{
@@ -170,6 +172,17 @@ function saveLatest(news,purpose){
             }
         })
     })
+}
+
+function checkLatestExist(news){
+    if(latestUpdates.length > 0){
+        latestUpdates.find(function(item, i){
+            if(item.sourceUrl === news.sourceUrl){
+              return true;
+            }
+        });
+    }
+    return false;
 }
 
 exports.getLatestUpdates = function(alertId){
