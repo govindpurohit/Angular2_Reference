@@ -9,6 +9,7 @@ import { Subject }    from 'rxjs/Subject';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/share';
 
 @Injectable()
 export class FeedService {
@@ -25,7 +26,8 @@ export class FeedService {
   constructor(public appBaseService : AppHttpService) { }
 
   saveFeed(feed){
-    return this.appBaseService.post('/api/alerts',feed).map(res => res.json());
+    return this.appBaseService.post('/api/alerts',feed).map(res => res.json())
+    .share();
   }
 
   // Service message commands
@@ -35,7 +37,8 @@ export class FeedService {
 
   getFeeds(){
      return this.appBaseService.get('/api/alerts').map(res => res.json())
-      .catch(this.handleError);
+     .share()
+     .catch(this.handleError);
   }
 
   setSingleFeed(singleFeed){
@@ -44,11 +47,13 @@ export class FeedService {
 
   getReferenceByFeed(feed){
     return this.appBaseService.get('/api/reference/'+feed._id).map(res => res.json())
+    .share()
     .catch(this.handleError);
   }
 
   deleteReferenceById(id){
-    return this.appBaseService.delete('/api/reference/'+id).map(res => res.json());
+    return this.appBaseService.delete('/api/reference/'+id).map(res => res.json())
+    .share();
   }
 
   handleError(error: Response | any){

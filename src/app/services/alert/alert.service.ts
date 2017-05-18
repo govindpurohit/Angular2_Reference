@@ -9,28 +9,27 @@ import { Subject }    from 'rxjs/Subject';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/share';
 
 @Injectable()
 export class AlertService {
 // Observable string sources
   private alertSource = new Subject<String>();
   private singleAlertSource = new Subject<String>();
-  private editAlertSource = new Subject<String>();
 
   // Observable string streams
-  alertSource$ = this.alertSource.asObservable();
-  singleAlert$ = this.singleAlertSource.asObservable();
-  editAlert$ = this.editAlertSource.asObservable();
+  alertSource$ = this.alertSource.asObservable().share();
+  singleAlert$ = this.singleAlertSource.asObservable().share();
 
 
   constructor(public appBaseService : AppHttpService) { }
 
   saveAlert(alert){
-    return this.appBaseService.post('/api/alerts',alert).map(res => res.json());
+    return this.appBaseService.post('/api/alerts',alert).map(res => res.json()).share();
   }
 
   updateAlert(id,alert){
-    return this.appBaseService.put('api/alerts/'+id,alert).map(res => res.json());
+    return this.appBaseService.put('api/alerts/'+id,alert).map(res => res.json()).share();
   }
 
   // Service message commands
@@ -39,7 +38,7 @@ export class AlertService {
   }
 
   getAlerts(){
-     return this.appBaseService.get('/api/alerts').map(res => res.json())
+     return this.appBaseService.get('/api/alerts').map(res => res.json()).share()
       .catch(this.handleError);
   }
 
@@ -47,17 +46,15 @@ export class AlertService {
     this.singleAlertSource.next(singleAlert);
   }
 
-  setEditAlert(alert){
-    this.editAlertSource.next(alert);
-  }
-
   getReferenceByAlert(alert){
     return this.appBaseService.get('/api/reference/'+alert._id).map(res => res.json())
+    .share()
     .catch(this.handleError);
   }
 
   deleteAlertById(id){
     return this.appBaseService.delete('/api/alerts/'+id).map(res => res.json())
+    .share()
     .catch(this.handleError);
   }
 
