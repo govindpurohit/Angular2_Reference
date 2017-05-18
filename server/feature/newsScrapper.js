@@ -175,12 +175,17 @@ function saveLatest(news,purpose){
 }
 
 function checkLatestExist(news){
-    if(latestUpdates.length > 0){
-        latestUpdates.find(function(item, i){
-            if(item.sourceUrl === news.sourceUrl){
-              return true;
-            }
-        });
+    try{
+        if(latestUpdates.length > 0){
+            latestUpdates.find(function(item, i){
+                if(item.sourceUrl === news.sourceUrl){
+                return true;
+                }
+            });
+        }
+    }
+    catch(err){
+        console.log("Err in CheckLatest:"+err);
     }
     return false;
 }
