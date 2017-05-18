@@ -178,8 +178,8 @@ function checkLatestExist(news){
     try{
         if(latestUpdates.length > 0){
             latestUpdates.find(function(item, i){
-                if(item.sourceUrl === news.sourceUrl){
-                return true;
+                if(item.sourceUrl == news.sourceUrl){
+                    return true;
                 }
             });
         }
