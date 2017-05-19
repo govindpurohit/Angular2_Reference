@@ -127,11 +127,18 @@ export class FeedsComponent implements OnInit {
 
   addUpdates(){
     this.showUpdate = false;
+    this.noReferences = false;
     this.prependUpdates(this.update);
   }
   prependUpdates(updates){
-    for(let i=0;i<updates.length;i++){
-      this.ref.unshift(updates[i]);
+    if(this.ref.length > 0){
+      for(let i=0;i<updates.length;i++){
+        this.ref.unshift(updates[i]);
+      }
     }
+    else{
+      this.ref = updates;
+    }
+    
   }
 }

@@ -30,6 +30,6 @@ export class ReferenceService {
         this.socket.disconnect();
       };  
     })     
-    return observable;
+    return observable.share();
    }
 }

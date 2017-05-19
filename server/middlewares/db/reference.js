@@ -51,8 +51,8 @@ exports.deleteReferenceByFeedId = function(id){
 
 exports.isNewsExist = function(news){
   return new Promise((resolve,reject) => {
-    Reference.find({sourceUrl:news.sourceUrl}).then((data) => {
-      let exist = data && data.length > 0 ? true : false;
+    Reference.findOne({sourceUrl:news.sourceUrl}).then((data) => {
+      let exist = (data && data.length > 0) ? true : false;
       resolve(exist);
     },
     (err) => {

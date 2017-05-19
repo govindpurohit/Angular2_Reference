@@ -1,14 +1,16 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 const Feed = require('./feed')
 const Schema = mongoose.Schema;
+mongoose.plugin(uniqueValidator);
 
 mongoose.Promise = require('bluebird');
 
 const reference = new Schema({ 
     name:{type:String},
-    sourceUrl: String, 
+    sourceUrl: {type:String,unique:true}, 
     detail: String,
     imageUrl: String,
     createdAt: Date,
