@@ -48,6 +48,7 @@ export class AlertComponent implements OnInit {
 
   closeAlert(){
     this.error = false;
+    this.route.navigate(['/feeds']);
   }
 
 }
