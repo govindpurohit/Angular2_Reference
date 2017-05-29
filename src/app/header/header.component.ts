@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Response } from '@angular/http';
 
 import { LocalStorageService } from '../services/local-storage/local-storage.service';
 import { DownloadService } from '../services/download/download.service';
