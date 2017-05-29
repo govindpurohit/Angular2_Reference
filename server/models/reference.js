@@ -16,7 +16,8 @@ const reference = new Schema({
     createdAt: Date,
     type: String,
     headline: String,
-    feedReference: {type:Schema.Types.ObjectId,ref: Feed}
+    feedReference: {type:Schema.Types.ObjectId,ref: Feed},
+    externalLinks: String
 });
 
 // set up a mongoose model and pass it using module.exports

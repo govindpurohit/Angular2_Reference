@@ -34,6 +34,7 @@ import { AppCanActivateService } from './services/app-can-activate/app-can-activ
 import { AlertService } from './services/alert/alert.service';
 import { FeedService } from './services/feed/feed.service';
 import { ReferenceService } from './services/reference/reference.service';
+import { DownloadService } from './services/download/download.service';
 
 import {RlTagInputModule} from 'angular2-tag-input';
 import { HeaderComponent } from './header/header.component';
@@ -76,7 +77,8 @@ import { UpdateAlertComponent } from './update-alert/update-alert.component';
   AppCanActivateService,
   AlertService,
   FeedService,
-  ReferenceService
+  ReferenceService,
+  DownloadService
   ],
   bootstrap: [ AppComponent ]
 })

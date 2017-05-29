@@ -109,6 +109,7 @@ exports.getTwitterNews = function (searchWord,id,purpose){
                 for(let i=0;i<$(mainDiv).length;i++){
                     var time = mainDiv.eq(i).find('span.js-short-timestamp').attr("data-time-ms");
                     var ct = getRealTime(parseInt(time));
+                    var links = mainDiv.eq(i).find('a.twitter-timeline-link').attr('href');
                     try{
                         var singleTweet = {
                                 "name":mainDiv.eq(i).find('a.js-action-profile').text().trim().split("@")[0],
@@ -118,8 +119,11 @@ exports.getTwitterNews = function (searchWord,id,purpose){
                                 "detail": mainDiv.eq(i).find('p.tweet-text').text().trim(),
                                 "createdAt":ct,
                                 "type": "twitter",
-                                "feedReference":id
+                                "feedReference":id,
                             };
+                            if(links != undefined){
+                                singleTweet.externalLinks = links;
+                            }
                     }
                     catch(err) {
                         console.log("Error:"+err);

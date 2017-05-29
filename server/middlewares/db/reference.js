@@ -60,3 +60,11 @@ exports.isNewsExist = function(news){
     })
   })
 }
+
+exports.getAllLinks = function(){
+  return new Promise((resolve,reject) => {
+    Reference.find({}).exists('externalLinks', true).select('externalLinks -_id').then((data) => {
+      resolve(data);
+    })
+  })
+}

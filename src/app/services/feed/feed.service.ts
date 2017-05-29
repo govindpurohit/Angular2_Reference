@@ -19,8 +19,8 @@ export class FeedService {
   private singleFeedSource = new Subject<String>();
 
   // Observable string streams
-  feedSource$ = this.feedSource.asObservable();
-  singleFeed$ = this.singleFeedSource.asObservable();
+  feedSource$ = this.feedSource.asObservable().share();
+  singleFeed$ = this.singleFeedSource.asObservable().share();
 
 
   constructor(public appBaseService : AppHttpService) { }

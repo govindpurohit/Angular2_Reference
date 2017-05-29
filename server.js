@@ -13,6 +13,7 @@ var public = require('./server/routes/public');
 var config = require('./server/config/config');
 var alerts = require('./server/routes/feeds');
 var refer = require('./server/routes/reference');
+var handleDownloads = require('./server/routes/download');
 
 var authController = require('./server/middlewares/auth/auth');
 var scrapHandler = require('./server/feature/scrapHandler');
@@ -40,6 +41,7 @@ app.use(cors());
 app.use('/api', public);
 app.use('/api/alerts',authController.authorize,alerts);
 app.use('/api/reference',authController.authorize,refer);
+app.use('/api/download',authController.authorize,handleDownloads);
 
 // For all GET requests, send back index.html
 // so that PathLocationStrategy can be used
