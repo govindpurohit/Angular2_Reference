@@ -51,4 +51,8 @@ export class AlertComponent implements OnInit {
     this.route.navigate(['/feeds']);
   }
 
+  goToHome(){
+    this.route.navigate(['/']);
+  }
+
 }

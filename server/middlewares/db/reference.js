@@ -61,9 +61,9 @@ exports.isNewsExist = function(news){
   })
 }
 
-exports.getAllLinks = function(){
+exports.getAllLinks = function(id){
   return new Promise((resolve,reject) => {
-    Reference.find({}).exists('externalLinks', true).select('externalLinks -_id').then((data) => {
+    Reference.find({feedReference:id}).exists('externalLinks', true).select('externalLinks -_id').then((data) => {
       resolve(data);
     })
   })

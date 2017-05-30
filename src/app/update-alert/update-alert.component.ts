@@ -78,4 +78,8 @@ export class UpdateAlertComponent implements OnInit {
     }
   }
 
+  goToHome(){
+    this.router.navigate(['/']);
+  }
+
 }

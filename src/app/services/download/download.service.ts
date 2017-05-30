@@ -16,8 +16,8 @@ export class DownloadService {
 
   constructor(public appBaseService : AppHttpService ) { }
 
-  downloadFile(){
-   return this.appBaseService.get('/api/download').map(res => res._body)
+  downloadFile(id){
+   return this.appBaseService.get('/api/download/'+id).map(res => res._body)
      .share()
      .catch(this.handleError);
   }
